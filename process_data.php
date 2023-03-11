@@ -1,7 +1,4 @@
-<script>
-Access-Control-Allow-Origin: http://localhost/newfolder/
 
-</script>
 <?php
 
 //process_data.php
@@ -9,7 +6,7 @@ Access-Control-Allow-Origin: http://localhost/newfolder/
 if(isset($_POST["query"]))
 {
 
-	$connect = new PDO("mysql:host=localhost; dbname=lojacarros", "root", "");
+	$connect = new PDO("mysql:host=ip-10-20-0-235; dbname=sitecarros", "root", "Pmjoptr21.");
 
 	$data = array();
 
@@ -23,15 +20,15 @@ if(isset($_POST["query"]))
 		$condition = str_replace(" ", "%", $condition);
 
 		$sample_data = array(
-			':marca'			=>	'%' . $condition . '%',
-			':potencia'		=>	'%'	. $condition . '%'
+			':marcacarro'			=>	'%' . $condition . '%',
+			':modelocarro'		=>	'%'	. $condition . '%'
 		);
 
 		$query = "
-		SELECT marca, potencia 
-		FROM lojacarros 
-		WHERE marca LIKE :marca 
-		OR potencia LIKE :potencia 
+		SELECT modelocarro, marcacarro 
+		FROM sitecarros 
+		WHERE marcacarro LIKE :marcacarro 
+		OR modelocarro LIKE :modelocarro 
 		ORDER BY id DESC
 		";
 
@@ -51,8 +48,8 @@ if(isset($_POST["query"]))
 		foreach($result as $row)
 		{
 			$data[] = array(
-				'marca'		=>	str_ireplace($replace_array_1, $replace_array_2, $row["marca"]),
-				'potencia'	=>	str_ireplace($replace_array_1, $replace_array_2, $row["potencia"])
+				'marcacarro'		=>	str_ireplace($replace_array_1, $replace_array_2, $row["marcacarro"]),
+				'modelocarro'	=>	str_ireplace($replace_array_1, $replace_array_2, $row["modelocarro"])
 			);
 		}
 
@@ -61,8 +58,8 @@ if(isset($_POST["query"]))
 	{
 
 		$query = "
-		SELECT marca, potencia 
-		FROM lojacarros 
+		SELECT marcacarro, modelocarro 
+		FROM sitecarros 
 		ORDER BY id DESC
 		";
 
@@ -71,8 +68,8 @@ if(isset($_POST["query"]))
 		foreach($result as $row)
 		{
 			$data[] = array(
-				'marca'			=>	$row['marca'],
-				'potencia'		=>	$row['potencia']
+				'marcacarro'			=>	$row['marcacarro'],
+				'modelocarro'		=>	$row['modelocarro']
 			);
 		}
 
