@@ -1,12 +1,34 @@
 
 <?php
+$dbServername = "lojacarros.cgafid4rkvnz.us-east-2.rds.amazonaws.com";
+$dbUsername = "root";
+$dbPassword = "Pmjoptr21.";
+$dbName = "sitecarros";
+$conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
 
-//process_data.php
+$sql = "SELECT * FROM sitecarros;";
+$result = mysqli_query($conn, $sql);
+$resultCheck = mysqli_num_rows($result);
 
+if ($resultCheck > 0) {
+	while ($row = mysqli_fetch_assoc($result)) {
+		echo $row['modelocarro']. "<br>" ;//insert number if u want specific row
+	}
+}
+?>
+<?php
+/*
 if(isset($_POST["query"]))
 {
+	$host     = "ip-10-20-0-235";
+	$port     = 3306;
+	$socket   = "";
+	$user     = "root";
+	$password = "Pmjoptr21.";
+	$dbname   = "sitecarros";
 
-	$connect = new PDO("mysql:host=ip-10-20-0-235; dbname=sitecarros", "root", "Pmjoptr21.");
+	$con = new mysqli($host, $user, $password, $dbname, $port, $socket)
+    or die ('Could not connect to the database server' . mysqli_connect_error());
 
 	$data = array();
 
@@ -32,7 +54,7 @@ if(isset($_POST["query"]))
 		ORDER BY id DESC
 		";
 
-		$statement = $connect->prepare($query);
+		$statement = $con->prepare($query);
 
 		$statement->execute($sample_data);
 
@@ -63,7 +85,7 @@ if(isset($_POST["query"]))
 		ORDER BY id DESC
 		";
 
-		$result = $connect->query($query);
+		$result = $con->query($query);
 
 		foreach($result as $row)
 		{
@@ -79,4 +101,3 @@ if(isset($_POST["query"]))
 
 }
 
-?>
